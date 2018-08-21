@@ -14,16 +14,14 @@ import zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.ValueGroup.Batt
 
 public abstract class AbstractStats {
 
-    private static final int SIZE = 6;
-
-    public int id = 0;
+    private int id = 0;
     private Basic basic;
     private Battle battle;
 
     private List<String> characteristicJp;
-    private List<String> characteristicZh;
+    private List<String> characteristicZh = new LinkedList<>();
 
-    public AbstractStats(final StatsData data) {
+    AbstractStats(final StatsData data) {
         DataComponentHolder.inject(this);
         set(data);
     }
@@ -43,8 +41,28 @@ public abstract class AbstractStats {
     }
 
     public void set(final StatsData data) {
+        id = data.getId();
         basic.setAll(data);
         battle.setAll(data);
         characteristicJp = new LinkedList<>(data.getCharacteristic());
+    }
+
+    protected void addCharacteristicZh(String characteristic) {
+        characteristicZh.add(characteristic);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public List<TableString> getTableList() {
+        List<TableString> list = new LinkedList<>();
+        for (BasicType type : BasicType.values()) {
+            list.add(new TableString(type.name(), TableString.Type.Text));
+        }
+        for (BattleType type : BattleType.values()) {
+            list.add(new TableString(type.name(), TableString.Type.Value));
+        }
+        return list;
     }
 }

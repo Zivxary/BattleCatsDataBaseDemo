@@ -4,6 +4,7 @@ import dagger.Module;
 import dagger.Provides;
 import zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.ValueGroup.AbstractInfoValue;
 import zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.ValueGroup.Basic;
+import zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.ValueGroup.BasicType;
 import zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.ValueGroup.Battle;
 import zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.ValueGroup.BattleType;
 import zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.ValueGroup.IValueFactory;
@@ -18,12 +19,19 @@ public class DataModule {
     }
 
     @Provides
-    public Battle provideBattle(final IValueFactory<BattleType, AbstractInfoValue<Integer>> factory) {
+    public IValueFactory<BasicType, AbstractInfoValue<String>> provideBasicValueFactory() {
+        return new ValueFactory<>();
+    }
+
+    @Provides
+    public Battle provideBattle(
+            final IValueFactory<BattleType, AbstractInfoValue<Integer>> factory) {
         return new Battle(factory);
     }
 
     @Provides
-    public Basic provideBasic() {
-        return new Basic();
+    public Basic provideBasic(
+            final IValueFactory<BasicType, AbstractInfoValue<String>> factory) {
+        return new Basic(factory);
     }
 }

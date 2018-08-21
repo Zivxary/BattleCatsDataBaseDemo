@@ -6,32 +6,38 @@ import java.util.Map;
 
 import zxary.project.com.tw.battlecatsdatabasedemo.ParseWeb.StatsData;
 
-public abstract class AbstractStat<K extends Enum<K>, T, V extends AbstractInfoValue<T>> {
+class AbstractStat<K extends Enum<K>, T, V extends AbstractInfoValue<T>> {
 
     private Map<K, V> map;
 
-    @SuppressWarnings("unchecked")
-    public AbstractStat() {
-        Class<K> enumClass =
-                (Class<K>) ((ParameterizedType) getClass().getGenericSuperclass())
-                        .getActualTypeArguments()[0];
+    AbstractStat(final IValueFactory<K, V> valueFactory, final String path) {
+        valueFactory.setPath(getClass().getPackage().getName() + path);
+        Class<K> enumClass = getEnumClass();
         map = new EnumMap<>(enumClass);
+        for (K type : enumClass.getEnumConstants()) {
+            map.put(type, valueFactory.create(type));
+        }
     }
 
-    protected void mapPut(K type, V infoValue) {
-        map.put(type, infoValue);
+    @SuppressWarnings("unchecked")
+    private Class<K> getEnumClass() {
+        return (Class<K>) ((ParameterizedType) getClass().getGenericSuperclass())
+                .getActualTypeArguments()[0];
     }
 
     public T get(K type) {
         return map.get(type).get();
     }
 
-    protected void setValue(K type, final StatsData data) {
+    public void setAll(final StatsData data) {
+        for (K type : map.keySet()) {
+            setValue(type, data);
+        }
+    }
+
+    private void setValue(K type, final StatsData data) {
         if (map.containsKey(type)) {
             map.get(type).setValue(data);
         }
     }
-
-    public abstract void setAll(StatsData data);
-
 }
