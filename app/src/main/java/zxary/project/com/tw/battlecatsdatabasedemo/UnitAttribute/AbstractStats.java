@@ -13,56 +13,44 @@ import zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.ValueGroup.Batt
 import zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.ValueGroup.BattleType;
 
 public abstract class AbstractStats {
-
-    private int id = 0;
+	
+	private int id = 0;
     private Basic basic;
     private Battle battle;
-
     private List<String> characteristicJp;
     private List<String> characteristicZh = new LinkedList<>();
 
     AbstractStats(final StatsData data) {
-        DataComponentHolder.inject(this);
+	    DataComponentHolder.inject(this);
         set(data);
     }
-
-    @Inject
+	
+	@Inject
     public void setValueGroup(final Basic basic, final Battle battle) {
         this.basic = basic;
         this.battle = battle;
     }
-
-    public String get(final BasicType type) {
+	
+	public String get(final BasicType type) {
         return basic.get(type);
     }
-
-    public int get(final BattleType type) {
+	
+	public int get(final BattleType type) {
         return battle.get(type);
     }
-
-    public void set(final StatsData data) {
+	
+	public void set(final StatsData data) {
         id = data.getId();
         basic.setAll(data);
         battle.setAll(data);
         characteristicJp = new LinkedList<>(data.getCharacteristic());
     }
-
-    protected void addCharacteristicZh(String characteristic) {
+	
+	protected void addCharacteristicZh(final String characteristic) {
         characteristicZh.add(characteristic);
     }
-
-    public int getId() {
+	
+	public int getId() {
         return id;
-    }
-
-    public List<TableString> getTableList() {
-        List<TableString> list = new LinkedList<>();
-        for (BasicType type : BasicType.values()) {
-            list.add(new TableString(type.name(), TableString.Type.Text));
-        }
-        for (BattleType type : BattleType.values()) {
-            list.add(new TableString(type.name(), TableString.Type.Value));
-        }
-        return list;
     }
 }

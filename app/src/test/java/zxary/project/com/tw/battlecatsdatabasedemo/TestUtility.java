@@ -7,9 +7,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Assert;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -122,4 +124,22 @@ public class TestUtility {
     public static Document getFakeDocNull(){
         return getFakeDoc(TEST_NULL_HTML);
     }
+	
+	public static String getString(String fileName) {
+		StringBuilder sb = new StringBuilder(1024);
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(getPath(fileName)));
+			String line;
+			while ((line = br.readLine()) != null) {
+				sb.append(line);
+			}
+		} catch (FileNotFoundException e) {
+			printLn("FileNotFound：" + fileName);
+			e.printStackTrace();
+		} catch (IOException e) {
+			printLn("Reader Error");
+			e.printStackTrace();
+		}
+		return sb.toString();
+	}
 }

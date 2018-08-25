@@ -4,22 +4,30 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import zxary.project.com.tw.battlecatsdatabasedemo.DataBase.Dagger2.DBComponentHolder;
+
 public class DBHelper extends SQLiteOpenHelper {
-
-    public static final String DB_NAME = "BattleCatsData.db";
-
-    public static final int VERSION = 13;
+	
+	private static final String DB_NAME = "BattleCatsData.db";
+	
+	private static final int VERSION = 1;
 
     private static SQLiteDatabase database;
-
-    public DBHelper(Context context,
-                    String name,
-                    SQLiteDatabase.CursorFactory factory,
-                    int version) {
+	
+	private ITable catsTable;
+	
+	public DBHelper(final Context context,
+	                final String name,
+	                final SQLiteDatabase.CursorFactory factory,
+	                final int version) {
         super(context, name, factory, version);
+		DBComponentHolder.inject(this);
     }
-
-    public static SQLiteDatabase getDatabase(Context context) {
+	
+	public static SQLiteDatabase getDatabase(final Context context) {
         if (database == null || !database.isOpen()) {
             database = new DBHelper(context, DB_NAME, null, VERSION)
                     .getWritableDatabase();
@@ -29,9 +37,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(final SQLiteDatabase db) {
-        //db.execSQL(CatsDAO.CREATE_TABLE);
-        db.execSQL(CatsDAO.getCreateTableString());
-
+	    db.execSQL(catsTable.getCreateTableString());
     }
 
     @Override
@@ -39,5 +45,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + CatsDAO.getTableName());
         onCreate(db);
     }
+	
+	@Inject
+	public void setCatsTable(@Named("Cats") ITable iTable) {
+		catsTable = iTable;
+	}
+    
 }
 

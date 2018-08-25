@@ -1,8 +1,5 @@
 package zxary.project.com.tw.battlecatsdatabasedemo.ParseWeb.Dagger2;
 
-import zxary.project.com.tw.battlecatsdatabasedemo.ParseWeb.Dagger2.DaggerWebComponent;
-import zxary.project.com.tw.battlecatsdatabasedemo.ParseWeb.Dagger2.WebComponent;
-import zxary.project.com.tw.battlecatsdatabasedemo.ParseWeb.Dagger2.WebModule;
 import zxary.project.com.tw.battlecatsdatabasedemo.ParseWeb.Data.GetCatData;
 import zxary.project.com.tw.battlecatsdatabasedemo.ParseWeb.DownloadData;
 
