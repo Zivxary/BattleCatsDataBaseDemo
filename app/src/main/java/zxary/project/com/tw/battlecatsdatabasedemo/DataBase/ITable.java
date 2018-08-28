@@ -4,5 +4,5 @@ public interface ITable {
 	
 	String getTableName();
 	
-	String getCreateTableString();
+	String getCreateTableSQL();
 }

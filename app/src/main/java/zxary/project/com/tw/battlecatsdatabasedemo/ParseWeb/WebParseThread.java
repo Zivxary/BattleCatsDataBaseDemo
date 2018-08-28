@@ -4,17 +4,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
-import zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.CatStats;
+import zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.Stats.CatStatCollection;
 
 public class WebParseThread extends Thread {
 
     private BlockingQueue<DownloadData> toDoQueue;
-    private BlockingQueue<CatStats> doneQueue;
+	private BlockingQueue<CatStatCollection> doneQueue;
 
     private Boolean stopFlag = false;
 
     public WebParseThread(final BlockingQueue<DownloadData> dataQueue,
-                          final BlockingQueue<CatStats> saveQueue) {
+                          final BlockingQueue<CatStatCollection> saveQueue) {
         toDoQueue = dataQueue;
         doneQueue = saveQueue;
     }
@@ -31,7 +31,7 @@ public class WebParseThread extends Thread {
                 toDoQueue.remove().toStatsData(statsDataList);
             }
             for (StatsData data : statsDataList) {
-                doneQueue.add(new CatStats(data));
+	            doneQueue.add(new CatStatCollection(data));
             }
             if (stopFlag && toDoQueue.size() == 0) {
                 break;

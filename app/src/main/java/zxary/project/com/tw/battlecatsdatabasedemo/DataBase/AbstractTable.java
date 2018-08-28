@@ -3,43 +3,50 @@ package zxary.project.com.tw.battlecatsdatabasedemo.DataBase;
 import java.util.LinkedList;
 import java.util.List;
 
-import zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.ValueGroup.BasicType;
-import zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.ValueGroup.BattleType;
+import zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.StatsField.FieldData;
 
 abstract class AbstractTable implements ITable {
 	
 	protected static final String TEXT = "TEXT DEFAULT ''";
 	protected static final String VALUE = "INTEGER DEFAULT 0";
 	
-	protected String tableName = "Default";
+	String tableName = "Default";
 	protected String keyId = "_id";
 	
-	protected List<String> getTableList() {
-		List<String> list = new LinkedList<>();
-		for (BasicType type : BasicType.values()) {
-			list.add(type.name() + " " + TEXT);
-		}
-		for (BattleType type : BattleType.values()) {
-			list.add(type.name() + " " + VALUE);
-		}
-		return list;
+	protected List<FieldData> getFieldList() {
+		return new LinkedList<>();
 	}
 	
 	public String getTableName() {
 		return tableName;
 	}
 	
-	public String getCreateTableString() {
+	public String getCreateTableSQL() {
 		final int capacity = 1024;
-		StringBuilder stringBuilder = new StringBuilder(capacity);
-		stringBuilder.append("CREATE TABLE IF NOT EXISTS ")
+		StringBuilder sb = new StringBuilder(capacity);
+		sb.append("CREATE TABLE IF NOT EXISTS ")
 				.append(tableName).append(" ")
 				.append("(").append(keyId).append(" ")
 				.append("INTEGER PRIMARY KEY AUTOINCREMENT");
-		for (String s : getTableList()) {
-			stringBuilder.append(",").append(" ").append(s);
+		for (FieldData data : getFieldList()) {
+			sb.append(",").append(" ");
+			appendFieldData(sb, data);
 		}
-		stringBuilder.append(" ").append(")");
-		return stringBuilder.toString();
+		sb.append(" ").append(")");
+		return sb.toString();
+	}
+	
+	private void appendFieldData(StringBuilder sb, FieldData data) {
+		sb.append(data.getName());
+		switch (data.getType()) {
+			case TEXT:
+				sb.append(TEXT);
+				break;
+			case VALUE:
+				sb.append(VALUE);
+				break;
+			default:
+				break;
+		}
 	}
 }

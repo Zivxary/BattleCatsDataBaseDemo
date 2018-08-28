@@ -1,4 +1,6 @@
-package zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute;
+package zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.Stats;
+
+import android.content.ContentValues;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,15 +14,15 @@ import zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.ValueGroup.Basi
 import zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.ValueGroup.Battle;
 import zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.ValueGroup.BattleType;
 
-public abstract class AbstractStats {
+public abstract class AbstractStatCollection implements IStats {
 	
 	private int id = 0;
     private Basic basic;
     private Battle battle;
     private List<String> characteristicJp;
     private List<String> characteristicZh = new LinkedList<>();
-
-    AbstractStats(final StatsData data) {
+	
+	AbstractStatCollection(final StatsData data) {
 	    DataComponentHolder.inject(this);
         set(data);
     }
@@ -53,4 +55,12 @@ public abstract class AbstractStats {
 	public int getId() {
         return id;
     }
+	
+	@Override
+	public ContentValues toContentValue() {
+		ContentValues cv = new ContentValues();
+		cv.putAll(basic.toContentValues());
+		cv.putAll(battle.toContentValues());
+		return cv;
+	}
 }

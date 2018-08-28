@@ -11,7 +11,7 @@ public class AbstractTableTest {
 	@Test
 	public void getCreateTableString() {
 		TestTable table = new TestTable();
-		String actual = table.getCreateTableString();
+		String actual = table.getCreateTableSQL();
 		String expected = TestUtility.getString("CreateDefaultTable.txt");
 		assertEquals(expected, actual);
 	}

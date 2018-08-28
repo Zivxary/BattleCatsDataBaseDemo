@@ -3,14 +3,16 @@ package zxary.project.com.tw.battlecatsdatabasedemo.DataBase;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-public final class CatsDAO {
+import zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.Stats.IStats;
+
+public final class CatTableDAO {
 	
 	private static final String KEY_ID = "_id";
 	private static final String TABLE_NAME = "Cats";
 	
 	private SQLiteDatabase db;
 	
-	public CatsDAO(final Context context) {
+	public CatTableDAO(final Context context) {
 		db = DBHelper.getDatabase(context);
 	}
 	
@@ -22,7 +24,13 @@ public final class CatsDAO {
 		db.close();
 	}
 	
-	public void insert() {
+	public boolean update() {
+		//TODO
+		return false;
+	}
 	
+	public boolean insert(IStats stats) {
+		//TODO
+		return false;
 	}
 }

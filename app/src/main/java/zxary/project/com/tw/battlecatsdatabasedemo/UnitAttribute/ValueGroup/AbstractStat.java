@@ -1,18 +1,21 @@
 package zxary.project.com.tw.battlecatsdatabasedemo.UnitAttribute.ValueGroup;
 
+import android.content.ContentValues;
+
 import java.lang.reflect.ParameterizedType;
 import java.util.EnumMap;
 import java.util.Map;
 
 import zxary.project.com.tw.battlecatsdatabasedemo.ParseWeb.StatsData;
 
-class AbstractStat<K extends Enum<K>, T, V extends AbstractInfoValue<T>> {
+abstract class AbstractStat<K extends Enum<K>, T, V extends AbstractInfoValue<T>> {
 
     private Map<K, V> map;
+	private Class<K> enumClass = getEnumClass();
 
     AbstractStat(final IValueFactory<K, V> valueFactory, final String path) {
         valueFactory.setPath(getClass().getPackage().getName() + path);
-        Class<K> enumClass = getEnumClass();
+	    //Class<K> enumClass = getEnumClass();
         map = new EnumMap<>(enumClass);
         for (K type : enumClass.getEnumConstants()) {
             map.put(type, valueFactory.create(type));
@@ -40,4 +43,14 @@ class AbstractStat<K extends Enum<K>, T, V extends AbstractInfoValue<T>> {
             map.get(type).setValue(data);
         }
     }
+	
+	public ContentValues toContentValues() {
+		ContentValues cv = new ContentValues();
+		for (K type : enumClass.getEnumConstants()) {
+			contentValuesPut(cv, type);
+		}
+		return cv;
+	}
+	
+	abstract void contentValuesPut(ContentValues cv, K type);
 }

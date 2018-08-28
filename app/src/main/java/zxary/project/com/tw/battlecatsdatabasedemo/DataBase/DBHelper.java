@@ -37,12 +37,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(final SQLiteDatabase db) {
-	    db.execSQL(catsTable.getCreateTableString());
+	    db.execSQL(catsTable.getCreateTableSQL());
     }
 
     @Override
     public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + CatsDAO.getTableName());
+	    db.execSQL("DROP TABLE IF EXISTS " + catsTable.getTableName());
         onCreate(db);
     }
 	
