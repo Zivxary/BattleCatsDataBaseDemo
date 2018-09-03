@@ -17,7 +17,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import zxary.project.com.tw.battlecatsdatabasedemo.ParseWeb.FakeDocument;
+import zxary.project.com.tw.battlecatsdatabasedemo.parseWeb.FakeDocument;
 
 public class TestUtility {
 

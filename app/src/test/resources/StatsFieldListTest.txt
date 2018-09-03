@@ -1,0 +1,16 @@
+Uid TEXT
+NameJp TEXT
+NameZh TEXT
+ClassJp TEXT
+ClassZh TEXT
+ImageBase64 TEXT
+BasicHealPoint VALUE
+BasicAttack VALUE
+Frequency VALUE
+Occur VALUE
+Interval VALUE
+AttackDistance VALUE
+AttackType VALUE
+MoveSpeed VALUE
+KnockBack VALUE
+Money VALUE
