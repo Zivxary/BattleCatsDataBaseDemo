@@ -2,8 +2,8 @@ package zxary.project.com.tw.battlecatsdatabasedemo.database.create;
 
 import java.util.List;
 
+import zxary.project.com.tw.battlecatsdatabasedemo.attribute.field.FieldData;
 import zxary.project.com.tw.battlecatsdatabasedemo.database.utility.StringRes;
-import zxary.project.com.tw.battlecatsdatabasedemo.unitAttribute.field.FieldData;
 
 abstract class AbstractTable implements ITable {
     

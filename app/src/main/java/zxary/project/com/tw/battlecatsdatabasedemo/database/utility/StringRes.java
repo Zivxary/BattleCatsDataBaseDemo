@@ -1,6 +1,6 @@
 package zxary.project.com.tw.battlecatsdatabasedemo.database.utility;
 
-import zxary.project.com.tw.battlecatsdatabasedemo.unitAttribute.group.BasicType;
+import zxary.project.com.tw.battlecatsdatabasedemo.attribute.group.BasicType;
 
 public class StringRes {
     private static final String CAT_TABLE_NAME = "Cats";

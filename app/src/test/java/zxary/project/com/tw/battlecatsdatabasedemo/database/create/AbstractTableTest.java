@@ -6,8 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import zxary.project.com.tw.battlecatsdatabasedemo.TestUtility;
-import zxary.project.com.tw.battlecatsdatabasedemo.unitAttribute.field.FieldData;
-import zxary.project.com.tw.battlecatsdatabasedemo.unitAttribute.field.ValueType;
+import zxary.project.com.tw.battlecatsdatabasedemo.attribute.field.FieldData;
+import zxary.project.com.tw.battlecatsdatabasedemo.attribute.field.ValueType;
 
 import static org.junit.Assert.assertEquals;
 

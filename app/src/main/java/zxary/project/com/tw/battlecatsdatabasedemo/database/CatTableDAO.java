@@ -6,8 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.io.Closeable;
 
+import zxary.project.com.tw.battlecatsdatabasedemo.attribute.stats.IStats;
 import zxary.project.com.tw.battlecatsdatabasedemo.database.utility.StringRes;
-import zxary.project.com.tw.battlecatsdatabasedemo.unitAttribute.stats.IStats;
 
 public final class CatTableDAO implements Closeable {
     
